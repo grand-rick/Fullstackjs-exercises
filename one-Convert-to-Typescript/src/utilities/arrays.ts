@@ -15,9 +15,17 @@ const addArr = (arr: number[]): number => {
 };
 
 // Find the largest number in an array
-const lgNum = (arr: number[]): number => {
+const lgNum = (arr: (number | string)[]): number => {
 	let largest = 0;
-	arr.forEach((x) => {
+	const numbers: number[] = [];
+	
+	arr.forEach(el => {
+		if (el === Number(el)) {
+			numbers.push(el)
+		}
+	});
+
+	numbers.forEach((x) => {
 		if (x > largest) {
 			largest = x;
 		}
