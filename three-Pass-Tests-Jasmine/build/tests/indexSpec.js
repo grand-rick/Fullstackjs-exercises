@@ -19,7 +19,7 @@ describe('Testing Array functions', () => {
         expect(arrays_1.default.lgNum(numArr)).toBeGreaterThanOrEqual(6);
     });
     it('removes the third element in an array', () => {
-        expect(arrays_1.default.cut3(numArr)).toEqual([3, 4, 6]);
+        expect(arrays_1.default.cut3(numArr)).not.toContain(5);
     });
 });
 describe('Testing Number functions', () => {
