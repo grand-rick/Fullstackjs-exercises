@@ -9,6 +9,22 @@ var port = 3000;
 app.get('/', function (req, res) {
     res.send('Server is working');
 });
+
+function logOriginalUrl (req, res, next) {
+    console.log('Request URL:', req.originalUrl)
+    next()
+}
+
+function logMethod (req, res, next) {
+    console.log('Request Type:', req.method)
+    next()
+}
+
+const logStuff = [logOriginalUrl, logMethod]
+    app.get('/user/:id', logStuff, (req, res, next) => {
+res.send('User Info')
+})
+
 app.listen(port, function () {
     console.log("Server running at http://localhost:".concat(port));
 });
