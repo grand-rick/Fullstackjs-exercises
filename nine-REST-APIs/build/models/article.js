@@ -50,7 +50,7 @@ var ArticleStore = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = 'SELECT * FROM article';
+                        sql = 'SELECT * FROM articles';
                         return [4 /*yield*/, database_1.default.connect()];
                     case 1:
                         conn = _a.sent();
@@ -74,11 +74,11 @@ var ArticleStore = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = 'INSERT INTO articles (title, context) VALUES (($1), ($2))';
+                        sql = 'INSERT INTO articles (title, content) VALUES (($1), ($2))';
                         return [4 /*yield*/, database_1.default.connect()];
                     case 1:
                         conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [a.title, a.context])];
+                        return [4 /*yield*/, conn.query(sql, [a.title, a.content])];
                     case 2:
                         result = _a.sent();
                         conn.release();

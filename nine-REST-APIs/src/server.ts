@@ -28,7 +28,6 @@ app.get('/article', async (req: Request, res: Response) => {
         const article1: Article = await article.create({title: 'The rise of P.K the First', content: 'I AM THE GREATEST OF MY BLOODLINE!!'});
 
         const result = await article.index();
-        console.log(result);
         res.send(result[0]);
     } catch (error) {
         console.log(error);

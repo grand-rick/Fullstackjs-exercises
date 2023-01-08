@@ -41,25 +41,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var body_parser_1 = __importDefault(require("body-parser"));
+var cors_1 = __importDefault(require("cors"));
+var morgan_1 = __importDefault(require("morgan"));
 var article_1 = __importDefault(require("./models/article"));
 var article = new article_1.default();
 var app = (0, express_1.default)();
 var port = 3000;
+var corsOptions = {
+    origin: 'https://someotherdomain.com',
+    optionsSuccessStatus: 200
+};
+app.use((0, cors_1.default)(corsOptions));
 app.use(body_parser_1.default.json());
-app.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var article1, index, error_1;
+app.use((0, morgan_1.default)('common'));
+app.get('/', function (req, res) {
+    res.send('This is the homepage');
+});
+app.get('/article', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var article1, result, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 3, , 4]);
-                return [4 /*yield*/, article.create({ title: 'The rise of P.K the First', context: 'I AM THE GREATEST OF MY BLOODLINE!!' })];
+                return [4 /*yield*/, article.create({ title: 'The rise of P.K the First', content: 'I AM THE GREATEST OF MY BLOODLINE!!' })];
             case 1:
                 article1 = _a.sent();
                 return [4 /*yield*/, article.index()];
             case 2:
-                index = _a.sent();
-                // res.json(index[0]);
-                res.send('This is the homepage');
+                result = _a.sent();
+                res.send(result[0]);
                 return [3 /*break*/, 4];
             case 3:
                 error_1 = _a.sent();
@@ -69,6 +79,9 @@ app.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, func
         }
     });
 }); });
+app.get('/test-cors', (0, cors_1.default)(corsOptions), function (req, res) {
+    res.json({ msg: 'This is CORS-enabled with a middle ware' });
+});
 app.listen(port, function () {
     console.log("Server started at http://localhost:".concat(port));
 });
