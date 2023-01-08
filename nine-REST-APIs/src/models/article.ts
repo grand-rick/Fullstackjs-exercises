@@ -24,7 +24,7 @@ export default class ArticleStore {
 
     async create(a: Article): Promise<Article> {
         try {
-            const sql = 'INSERT INTO articles (title, content) VALUES (($1), ($2))';
+            const sql = 'INSERT INTO articles (title, content) VALUES (($1), ($2)) RETURNING *';
             const conn = await client.connect();
             const result = await conn.query(sql, [a.title, a.content]);
             conn.release();
