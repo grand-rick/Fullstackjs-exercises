@@ -24,15 +24,49 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.get('/article', (req: Request, res: Response) => {
-    res.send('This is the index page');
+    res.send('This is the index route');
 });
 
 app.get('/article/:id', (req: Request, res: Response) => {
     const id = req.params.id;
-    res.send(`This is the show page, showing article-${id}`);
+    res.send(`This is the show route, showing article-${id}`);
 });
 
+app.post('/articles', (req: Request, res: Response) => {
+    const article: Article = {
+      title: req.body.title,
+      content: req.body.content
+    }
+    try {
+       res.send('this is the CREATE route')
+    } catch (err) {
+       res.status(400)
+       res.json(err)
+    }
+})
 
+app.put('/articles/:id', (req: Request, res: Response) => {
+    const article: Article = {
+      id: req.params.id, 
+      title: req.body.title,
+      content: req.body.content
+    }
+    try {
+       res.send('this is the EDIT route')
+    } catch (err) {
+       res.status(400)
+       res.json(err)
+    }
+})
+
+app.delete('/articles/:id', (_req: Request, res: Response) => {
+    try {
+       res.send('this is the DELETE route')
+    } catch (err) {
+       res.status(400)
+       res.json(err)
+    }
+})
 app.get('/test-cors', cors(corsOptions), (req: Request, res: Response) => {
     res.json({msg: 'This is CORS-enabled with a middle ware'});
 } )
