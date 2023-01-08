@@ -1,0 +1,1 @@
+CREATE TABLE articles (id SERIAL PRIMARY KEY, title VARCHAR(50), content text);
