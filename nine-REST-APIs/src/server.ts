@@ -23,16 +23,15 @@ app.get('/', (req: Request, res: Response) => {
     res.send('This is the homepage');
 });
 
-app.get('/article', async (req: Request, res: Response) => {
-    try {
-        const article1: Article = await article.create({title: 'The rise of P.K the First', content: 'I AM THE GREATEST OF MY BLOODLINE!!'});
-
-        const result = await article.index();
-        res.send(result[0]);
-    } catch (error) {
-        console.log(error);
-    }
+app.get('/article', (req: Request, res: Response) => {
+    res.send('This is the index page');
 });
+
+app.get('/article/:id', (req: Request, res: Response) => {
+    const id = req.params.id;
+    res.send(`This is the show page, showing article-${id}`);
+});
+
 
 app.get('/test-cors', cors(corsOptions), (req: Request, res: Response) => {
     res.json({msg: 'This is CORS-enabled with a middle ware'});
