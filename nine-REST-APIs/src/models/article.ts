@@ -3,13 +3,13 @@ import client from '../database';
 export type Article = {
     id?: string | number;
     title: string
-    context: string
+    content: string
 }
 
 export default class ArticleStore {
     async index(): Promise<Article[]> {
         try {
-            const sql = 'SELECT * FROM article';
+            const sql = 'SELECT * FROM articles';
 
             const conn = await client.connect();
             const result = await conn.query(sql);
@@ -24,9 +24,9 @@ export default class ArticleStore {
 
     async create(a: Article): Promise<Article> {
         try {
-            const sql = 'INSERT INTO articles (title, context) VALUES (($1), ($2))';
+            const sql = 'INSERT INTO articles (title, content) VALUES (($1), ($2))';
             const conn = await client.connect();
-            const result = await conn.query(sql, [a.title, a.context]);
+            const result = await conn.query(sql, [a.title, a.content]);
             conn.release();
             return result.rows[0];
         } catch (error) {
