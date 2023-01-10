@@ -43,7 +43,19 @@ export default class ArticleStore {
 
             return result.rows[0];
         } catch (error) {
-            throw new Error(`Couldn't show article. Error:${error}`);
+            throw new Error(`Couldn't show article. Error: ${error}`);
+        }
+    }
+
+    async update(a: Article): Promise<Article> {
+        try {
+            const sql = 'UPDATE articles SET title = $2, content = $3 WHERE id = $1';
+            const conn = await client.connect();
+            const result = await conn.query(sql, [a.id, a.title, a.content]);
+            conn.release();
+            return result.rows[0];
+        } catch (error) {
+            throw new Error(`Couldn't update article. Error: ${error}`);
         }
     }
 
