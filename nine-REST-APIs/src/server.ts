@@ -2,7 +2,7 @@ import express, {Request, Response} from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import morgan from 'morgan';
-import articles_routes from './handlers/articles';
+import articlesRoutes from './handlers/articles';
 
 const app: express.Application = express();
 const port: number = 3000;
@@ -16,7 +16,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(morgan('common'));
 
-articles_routes(app);
+articlesRoutes(app);
 
 app.get('/', (req: Request, res: Response) => {
     res.send('This is the homepage');
